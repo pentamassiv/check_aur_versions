@@ -1,0 +1,23 @@
+name: Check_vlc
+on:
+  schedule:
+    - cron: '30 1 * * *'
+
+jobs:
+  Check_vlc:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update repositories
+      run: sudo apt-get update
+    - name: Get curl
+      run: sudo apt-get install curl
+    - name: Compare version and fail to notify me when major version 4 was released
+      run: version=$(curl https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/vlc/trunk/PKGBUILD | grep _vlcver=)
+           major_version=${version:0:9}
+           echo "$major_version"
+           if [[ "$major_version" != "_vlcver=3" ]]; then
+             echo "Version 4 was released" >&2
+             exit 130
+           fi
+
+
