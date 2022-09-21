@@ -17,7 +17,7 @@ jobs:
            version=$(curl https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/vlc/trunk/PKGBUILD | grep _vlcver=)
            major_version=${version:0:9}
            echo "$major_version"
-           if [[ "$major_version" != "_vlcver=4" ]]; then
+           if [[ "$major_version" != "_vlcver=3" ]]; then
              echo "Version 4 was released" >&2
              exit 130
            fi
