@@ -1,11 +1,11 @@
-name: Check_gnome-console
+name: Check_tor-browser
 on:
   workflow_dispatch:
   schedule:
     - cron: '30 1 * * *'
 
 jobs:
-  Check_gnome-console:
+  Check_tor-browser:
     runs-on: ubuntu-latest
     steps:
     - name: Update repositories
@@ -14,10 +14,10 @@ jobs:
       run: sudo apt-get install curl
     - name: Check if it is available from the regular repos
       run: |
-           error_message=$(curl https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/gnome-console/trunk/PKGBUILD)
+           error_message=$(curl https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/tor-browser/trunk/PKGBUILD)
            echo "$error_message"
            if [[ "$error_message" != "404: Not Found" ]]; then
-             echo "gnome-console is available in regular repos" >&2
+             echo "tor-browser is available in regular repos" >&2
              exit 130
            fi
 
