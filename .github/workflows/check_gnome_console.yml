@@ -16,7 +16,7 @@ jobs:
       run: |
            error_message=$(curl https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/gnome-console/trunk/PKGBUILD)
            echo "$error_message"
-           if [[ "$error_message" = "404: Not Found" ]]; then
+           if [[ "$error_message" != "404: Not Found" ]]; then
              echo "Gnome-console is available in regular repos" >&2
              exit 130
            fi
