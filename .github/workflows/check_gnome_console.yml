@@ -1,0 +1,24 @@
+name: Check_gnome_console
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 1 * * *'
+
+jobs:
+  Check_gnome_console:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update repositories
+      run: sudo apt-get update
+    - name: Get curl
+      run: sudo apt-get install curl
+    - name: Check if it is available from the regular repos
+      run: |
+           error_message=$(curl https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/gnome-console/trunk/PKGBUILD)
+           echo "$error_message"
+           if [[ "$error_message" = "404: Not Found" ]]; then
+             echo "Gnome-console is available in regular repos" >&2
+             exit 130
+           fi
+
+
